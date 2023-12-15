@@ -114,8 +114,11 @@
                 <div class="clear_all"></div>
 
                 <ul class="main_nav">
-                    
+                    @if(Auth::user())
+                    <li><a href="{{route('inspecte_form')}}"><i class="fa-solid fa-briefcase"></i> Pro Inspecte</a></li>
+                    @else
                     <li><a href="#about"><i class="fa-solid fa-briefcase"></i> Pro Inspecte</a></li>
+                    @endif
                     <li><a href="#avantages"><i class="fa-solid fa-house"></i> Features</a></li>
                     <li class="forfaits"><a href="#forfaits"><i class="fa-solid fa-tag"></i> Our Packages</a></li>
                     <li><a href="#contact"><i class="fa-solid fa-phone-volume"></i> Contact</a></li>

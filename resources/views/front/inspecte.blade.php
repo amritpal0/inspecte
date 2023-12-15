@@ -1,49 +1,9 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-    
-<title>Pro Inspected - L’inspection de votre véhicule en toute simplicité.</title>
+@extends('front.layouts.master')
 
-<meta name="description" content="Inspection of your vehicle made easy. - No more need to have a pen - No more need to buy the report notebook - No more need to print the forms. You just need your cell phone with internet, choose the plan that suits you and fill in your personal information as well as that of your vehicle. You are now ready to complete the first inspection of your vehicle! It will no longer be necessary to enter your information and/or your vehicle each time. Just check the checked points, mention and take photos of the problematic elements and that's it, that's it! If your vehicle is in order, in less than 5 minutes you will be ready to drive!" />
-
-<meta name="copyright" content="Pro Inspected" />
-<meta name="author" content="Applications Neltek" />
-<meta name="Distribution" content="Global" />
-<meta name="Rating" content="General" />
-<meta name="Robots" content="INDEX, FOLLOW" />
-<meta name="Revisit-after" content="1 Day" />
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<!-- Mobile -->
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    
-<!-- CSS -->
-<link href="{{asset('frontend/css/main.css')}}" type="text/css" rel="stylesheet" />
-<link href="{{asset('frontend/css/normalize.css')}}" type="text/css" rel="stylesheet" />
-    
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Fonts -->
-<script src="https://kit.fontawesome.com/70036548ca.js" crossorigin="anonymous"></script>    
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&family=Smooch+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-
-<body class="inspected_form">
+@section('content')
 
     <interface>
-    
-        <h1>
-            <a href="{{asset('')}}">
-                <img src="{{asset('frontend/img/Logo_Pro_Inspecte_en.png')}}" alt="Pro Inspected - the inspection of your vehicule in total simplicity." title="Pro Inspected - the inspection of your vehicule in total simplicity.">
-            </a> 
-        </h1>
-        <div class="car_01"></div>
+    <div class="car_01"></div>
         <div class="car_02"></div>
 
         <div class="clear_all"></div>
@@ -66,7 +26,6 @@
 
 
         </div>
-
         <div class="clear_all"></div>
 
         <div class="right_side">
@@ -90,13 +49,13 @@
                 
                 <ul>
                     
-                    <li>Phares gauches <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Phares droits <input type="checkbox" value="None" id="" name="check" /></li> 
-                    <li>Clignotants gauches <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Clignotants droits <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Lumière freins gauche <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Lumière freins droits <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Lumière plaque <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Left headlights <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Right headlights <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Left turn signals <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Right turn signals <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Left brake light <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Right brake light <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>License plate light <input type="checkbox" value="None" id="" name="check" /></li>
                     
                 </ul>
                 
@@ -197,10 +156,10 @@
                         Interior damaged or stained? <br>
                         
                         <input type="radio" id="ext_abim_oui" name="fav_language" value="Oui">
-                        <label for="Oui">Oui (details)</label>
+                        <label for="Oui">Yes (explain)</label>
                         
                         <input type="radio" id="ext_abim_non" name="fav_language" value="Non">
-                        <label for="Non">Non</label>
+                        <label for="Non">No</label>
                         
                     </li>
                     
@@ -240,11 +199,11 @@
 
                 <h3><span class="green">Photo upload</span></h3>
 
-                <div class="btn_upload"><a href="#">Uplsodo here<i class="fa-solid fa-image"></i></a></div>
+                <div class="btn_upload"><a href="#">Upload here<i class="fa-solid fa-image"></i></a></div>
                 
-                <img src="{{asset('frontend/img/demo_photo.jpg')}}">
+                <img src="img/demo_photo.jpg">
                 
-                <img src="{{asset('frontend/img/demo_photo_02.jpg')}}">
+                <img src="img/demo_photo_02.jpg">
                 
                 <div class="clear_all"></div>
                 
@@ -252,6 +211,8 @@
                 
                 <input type="checkbox" value="None" id="" name="check" /> 
                 I confirm that all elements have been verified by respecting article 55 of law 17.
+
+                <p class="saaq"><i class="fa-solid fa-circle-exclamation"></i> We respect all the requirements of the <a href="https://saaq.gouv.qc.ca/" target="_blank">SAAQ</a> and <a href="https://www.transports.gouv.qc.ca/fr/entreprises-partenaires/trpa/chauffeurs-proprietaires/Pages/chauffeurs-proprietaires.aspx" target="_blank">Transport Québec.</a></p>
                 
                 <div class="btn_submit"><a href="#">I submit my inspection <i class="fa-solid fa-cloud-arrow-up"></i></a></div>
 
@@ -262,9 +223,11 @@
             </form>
 
             <div class="clear_all"></div>
-            
-    </div>    
+    </interface> 
+    
+@endsection    
 
+@push('custom-scripts')    
 <script>
         // Function to update the time
         function updateTime() {
@@ -276,7 +239,4 @@
     // Update the time initially
     updateTime();
 </script> 
-    
-</body>
-    
-</html>
+@endpush

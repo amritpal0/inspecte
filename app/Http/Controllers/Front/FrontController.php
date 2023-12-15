@@ -39,6 +39,9 @@ class FrontController extends Controller
     //homepage
     public function home()
     {
+        if (session()->has('packageData')) {
+            session()->forget('packageData');
+        }
         $packages = Product::orderby('id', 'asc')->with('vehicle')->get();
 
         return view('front.index', compact('packages'));
@@ -94,6 +97,9 @@ class FrontController extends Controller
         $payment = $this->payment();
         if($payment == true){
             $this->savePackage();
+            if (session()->has('packageData')) {
+                session()->forget('packageData');
+            }
             return response()->json([
                 'success' => true,
                 'msg'  => 'Package buy successfully.'
@@ -119,6 +125,9 @@ class FrontController extends Controller
         $data = session('packageData');
         $package = new OrderPackage;
         $package->user_id = $user->id;
+        if(isset($data['is_annual'])){
+            $package->is_annual = $data['is_annual'];
+        }
         $package->package_id = $data['package_id'];
         $package->vehicle_id = $data['vehicle_id'];
         $package->price = $data['vehicle_price'];

@@ -65,6 +65,8 @@ class AdminController extends Controller
                 'vehicle.*' => 'required',
                 'price' => 'required',
                 'price.*' => 'required',
+                'annual_price' => 'required',
+                'annual_price.*' => 'required',
                 'image' => 'required|max:2048'
             ]
             );
@@ -111,6 +113,7 @@ class AdminController extends Controller
                 $addon->vehicle = $vehicle;
                 $addon->product_id = $id;
                 $addon->price = $request->price[$key];
+                $addon->annual_price = $request->annual_price[$key];
                 $addon->save();   
             }
         }
@@ -141,6 +144,8 @@ class AdminController extends Controller
                 'vehicle.*' => 'required',
                 'price' => 'required',
                 'price.*' => 'required',
+                'annual_price' => 'required',
+                'annual_price.*' => 'required',
             ]
             );
 
@@ -195,6 +200,7 @@ class AdminController extends Controller
                 $addon->vehicle = $vehicle;
                 $addon->product_id = $id;
                 $addon->price = $request->price[$key];
+                $addon->annual_price = $request->annual_price[$key];
                 $addon->save();   
             }
         }

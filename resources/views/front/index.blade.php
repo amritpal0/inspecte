@@ -148,6 +148,7 @@
             <input type="hidden" class="package_id" value="{{$p->id}}">
             <input type="hidden" class="vehicle_id" value="{{$p->vehicle[0]->id}}">
             <input type="hidden" class="vehicle_price" value="{{$p->vehicle[0]->price}}">
+            <input type="hidden" class="annual_price" value="{{$p->vehicle[0]->annual_price}}">
             <ul class="options">
                 @foreach($p->vehicle as $v)
                 <li>{{$v->vehicle}}: ${{$v->price}} /month</li>
@@ -161,7 +162,7 @@
             @else
             <div class="btn_forfaits"><a href="javascript:void(0)" class="monthly_btn">Get monthly pack</a></div>
             <div class="clear_all"></div>
-            <div class="btn_forfaits_annuel"><a href="#">Anual pack ({{$p->annual_price}}$)</a></div>
+            <div class="btn_forfaits_annuel"><a href="javascript:void(0)" class="annual_pack">Anual pack ({{$p->vehicle[0]->annual_price}}$)</a></div>
             @endif
 
         </li>
@@ -285,6 +286,30 @@
                 package_id: package_id,
                 vehicle_id: vehicle_id,
                 vehicle_price:vehicle_price
+            },
+            success:function(response){
+                if(response.success == true){
+                    window.location.href = "{{route('register_driver')}}";
+                }
+            },
+            error:function(response){
+                console.log(response);
+            }
+        })
+    })
+    $('.annual_pack').on('click', function(){
+        var package_id = $(this).closest('.package_li').find('.package_id').val();
+        var vehicle_id = $(this).closest('.package_li').find('.vehicle_id').val();
+        var vehicle_price = $(this).closest('.package_li').find('.annual_price').val();
+        var is_annual = 1;
+        $.ajax({
+            type: "POST",
+            url: "{{route('add_package')}}",
+            data:{
+                package_id: package_id,
+                vehicle_id: vehicle_id,
+                vehicle_price:vehicle_price,
+                is_annual:is_annual
             },
             success:function(response){
                 if(response.success == true){

@@ -269,6 +269,16 @@
                                                                     @enderror
                                                                 </span>
                                                         </div>
+                                                        <div class="form-group col-md-2">
+                                                            <label>Annual Price</label>
+                                                            <input type="text" value="{{$p->annual_price}}" class="form-control" placeholder="Enter annual price"
+                                                                name="annual_price[]">
+                                                                <span class="text-danger">
+                                                                    @error('annual_price.0')
+                                                                    The Annual Price field is required
+                                                                    @enderror
+                                                                </span>
+                                                        </div>
                                                         <div class="align-items-center col-md-2 d-flex form-group">
                                                             <a class="add_button_price mt-4 btn pb-0" href="javascript:void(0)"><i
                                                                     class="fas fa-plus-square"></i></a>
@@ -298,6 +308,16 @@
                                                                     @enderror
                                                                 </span>
                                                         </div>
+                                                        <div class="form-group col-md-2">
+                                                            <label>Annual Price</label>
+                                                            <input type="text" value="{{$p->annual_price}}" class="form-control" placeholder="Enter annual price"
+                                                                name="annual_price[]">
+                                                                <span class="text-danger">
+                                                                    @error('annual_price.0')
+                                                                    The Annual Price field is required
+                                                                    @enderror
+                                                                </span>
+                                                        </div>
                                                         <div class="align-items-center col-md-2 d-flex form-group">
                                                             <a class="delete_button_price mt-4 btn pb-0" size-id="{{$p->id}}" href="javascript:void(0)"><i
                                                                     class="fas fa-minus-square"></i></a>
@@ -324,6 +344,16 @@
                                                         <span class="text-danger">
                                                             @error('price.0')
                                                             The price field is required
+                                                            @enderror
+                                                        </span>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Annual Price</label>
+                                                    <input type="text"  class="form-control" placeholder="Enter annual price"
+                                                        name="annual_price[]">
+                                                        <span class="text-danger">
+                                                            @error('annual_price.0')
+                                                            The Annual Price field is required
                                                             @enderror
                                                         </span>
                                                 </div>
@@ -418,6 +448,16 @@ $('.add_button_price').on('click', function() {
                             <span class="text-danger">
                                 @error('price.0')
                                 The size field is required
+                                @enderror
+                            </span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Annual Price</label>
+                        <input type="text"  class="form-control" placeholder="Enter annual price"
+                            name="annual_price[]">
+                            <span class="text-danger">
+                                @error('annual_price.0')
+                                The Annual Price field is required
                                 @enderror
                             </span>
                     </div>
