@@ -46,7 +46,9 @@
                                 <!-- Tabs navs -->
                                 <ul class="nav nav-tabs">
                                     <li class="active nav-item"><a href="#general" class="nav-link active"
-                                            data-toggle="tab">Package</a></li>
+                                            data-toggle="tab">Package (English)</a></li>
+                                    <li class="nav-item"><a href="#french" class="nav-link"
+                                            data-toggle="tab">Package (French)</a></li>        
                                     <li class="nav-item"><a href="#advanced1" class="nav-link"
                                             data-toggle="tab">Advanced</a>
                                     </li>
@@ -84,7 +86,7 @@
                                             </span>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label>Annual Price</label>
                                                 <input type="text" class="form-control"
                                                     value="{{isset($package->annual_price)? $package->annual_price: old('annual_price') }}"
@@ -94,8 +96,8 @@
                                                     {{$message}}
                                                     @enderror
                                                 </span>
-                                            </div>
-                                            <div class="form-group col-md-6 ">
+                                            </div> -->
+                                            <div class="form-group col-md-12 ">
                                                 <label>Slug</label>
                                                 <input type="text" class="form-control"
                                                     value="{{isset($package->slug)? $package->slug: old('slug') }}"
@@ -205,6 +207,121 @@
                                         </div>
 
                                     </div>
+                                    <div class="tab-pane fade  " id="french">
+                                        {{--<div class="form-group">
+                                            <label>Category</label>
+                                            <select name="category" id="" class="form-control">
+                                                <option value="0">Select Category</option>
+                                                @foreach($cat as $c)
+                                                    @if(isset($product))
+                                                    <option value="{{$c->id}}" {{(@$product->category->id == $c->id)? 'selected': ''}}>{{$c->name}}</option>
+                                                    @else
+                                                    <option value="{{$c->id}}">{{$c->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                                @error('category')
+                                                {{$message}}
+                                                @enderror
+                                            </span>
+                                        </div>--}}
+                                        <div class="form-group">
+                                            <label>Package Name</label>
+                                            <input type="text" class="form-control"
+                                                value="{{isset($package->french_name)? $package->french_name: old('french_name') }}"
+                                                placeholder="Enter package name" name="french_name">
+                                            <span class="text-danger">
+                                                @error('name')
+                                                {{$message}}
+                                                @enderror
+                                            </span>
+                                        </div>
+                                        <div class="row">
+                                            <!-- <div class="form-group col-md-6">
+                                                <label>Annual Price</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{isset($package->annual_price)? $package->annual_price: old('annual_price') }}"
+                                                    placeholder="Enter annula price" name="annual_price">
+                                                <span class="text-danger">
+                                                    @error('annual_price')
+                                                    {{$message}}
+                                                    @enderror
+                                                </span>
+                                            </div> -->
+                                            <div class="form-group col-md-12 ">
+                                                <label>Slug</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{isset($package->french_slug)? $package->french_slug: old('french_slug') }}"
+                                                    placeholder="Enter package slug" name="french_slug">
+                                                <span class="text-danger">
+                                                    @error('slug')
+                                                    {{$message}}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description of Package</label>
+                                            <textarea class="form-control"
+                                                placeholder="Enter something about package..." name="french_description"
+                                                id="description1"
+                                                rows="3">{{isset($package->french_description)? $package->french_description: old('french_description') }}</textarea>
+                                            <span class="text-danger">
+                                                @error('description')
+                                                {{$message}}
+                                                @enderror
+                                            </span>
+                                        </div>
+                                       {{--<div class="form-group">
+                                            <label for="exampleInputFile">Product Gallery</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" multiple class="custom-file-input"
+                                                        value="{{isset($product->product)? $product->image: old('image')}}"
+                                                        id="customFile" name="imagegallery[]">
+                                                    <label class="custom-file-label" for="customFile">
+                                                        @if(isset($productimages))
+                                                        @foreach($productimages as $p_img)
+                                                        {{$p_img->image}}
+                                                        @endforeach
+                                                        @endif
+                                                    </label>
+                                                    <input type="hidden" name="old_img" value="">
+                                                </div>
+                                            </div>
+                                            <span class="text-danger">
+                                                @error('imagegallery')
+                                                {{$message}}
+                                                @enderror
+                                            </span>
+                                            @if(isset($productimages))
+                                            @foreach($productimages as $p)
+                                            <div class="position-relative d-inline">
+                                                <a href="{{route('img_delete', $p->id)}}">
+                                                    <img src="{{asset('uploads/products/gallery')}}/{{$p->image}}" alt=""
+                                                        class="img-fluid img_gallery  mt-3" width="100px"
+                                                        height="100px">
+                                                    <span class="img-delete position-absolute"><i
+                                                            class="fas fa-times-circle"></i></span></a>
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                @if(isset($product->hotselling))
+                                                <input type="checkbox" class="form-check-input" value="1"
+                                                    name="hotselling"
+                                                    {{($product->hotselling == '1')? 'checked' : old('image')}}>Hot
+                                                Selling
+                                                @else
+                                                <input type="checkbox" class="form-check-input" value="1"
+                                                    name="hotselling">Hot Selling
+                                                @endif
+                                            </label>
+                                        </div>--}}
+
+                                    </div>
                                     <div class="tab-pane fade mt-40 mb-40" id="advanced1">
                                         <div class="form-group">
                                             <label>Meta Title</label>
@@ -223,6 +340,24 @@
                                             <input type="text" class="form-control"
                                                 value="{{isset($package->metakeyword)? $package->metakeyword: old('metakeyword') }}"
                                                 placeholder="Enter meta keyword name" name="metakeyword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Meta Title (French)</label>
+                                            <input type="text" class="form-control"
+                                                value="{{isset($package->french_meta_title)? $package->french_meta_title: old('french_meta_title') }}"
+                                                placeholder="Enter meta title" name="french_meta_title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Meta Description (French)</label>
+                                            <textarea class="form-control" row="4"
+                                                placeholder="Enter the meta Description"
+                                                name="french_meta_description">{{isset($package->french_meta_description)? $package->french_meta_description: old('french_meta_description') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Meta Keywords (French)</label>
+                                            <input type="text" class="form-control"
+                                                value="{{isset($package->french_meta_keyword)? $package->french_meta_keyword: old('french_meta_keyword') }}"
+                                                placeholder="Enter meta keyword name" name="french_meta_keyword">
                                         </div>
                                     </div>
                                 </div>
@@ -250,11 +385,21 @@
                                                         <input type="hidden" value="{{$p->id}}" class="form-control" placeholder="Enter size"
                                                                 name="vehicle_id[]">
                                                         <div class="form-group col-md-3">
-                                                            <label>Vehicle</label>
+                                                            <label>Vehicle (English)</label>
                                                             <input type="text" value="{{$p->vehicle}}" class="form-control" placeholder="Enter vehicle"
                                                                 name="vehicle[]">
                                                                 <span class="text-danger">
                                                                     @error('vehicle.0')
+                                                                    The vehicle field is required
+                                                                    @enderror
+                                                                </span>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label>Vehicle (French)</label>
+                                                            <input type="text" value="{{$p->french_vehicle}}" class="form-control" placeholder="Enter vehicle"
+                                                                name="french_vehicle[]">
+                                                                <span class="text-danger">
+                                                                    @error('french_vehicle.0')
                                                                     The vehicle field is required
                                                                     @enderror
                                                                 </span>
@@ -298,6 +443,16 @@
                                                                     @enderror
                                                                 </span>
                                                         </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label>Vehicle (French)</label>
+                                                            <input type="text" value="{{$p->french_vehicle}}" class="form-control" placeholder="Enter vehicle"
+                                                                name="french_vehicle[]">
+                                                                <span class="text-danger">
+                                                                    @error('french_vehicle.0')
+                                                                    The vehicle field is required
+                                                                    @enderror
+                                                                </span>
+                                                        </div>
                                                         <div class="form-group col-md-2">
                                                             <label>Price <small>per month</small></label>
                                                             <input type="text" value="{{$p->price}}" class="form-control" placeholder="Enter price"
@@ -333,6 +488,16 @@
                                                         name="vehicle[]">
                                                         <span class="text-danger">
                                                             @error('vehicle.0')
+                                                            The vehicle field is required
+                                                            @enderror
+                                                        </span>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Vehicle (French)</label>
+                                                    <input type="text"  class="form-control" placeholder="Enter vehicle"
+                                                        name="french_vehicle[]">
+                                                        <span class="text-danger">
+                                                            @error('french_vehicle.0')
                                                             The vehicle field is required
                                                             @enderror
                                                         </span>

@@ -1091,7 +1091,6 @@ footer {
     padding: 10px 0 15px 0;
     background: black;
     color: #004062;
-    /* margin-top: 50px; */
 }
 
 footer p {
@@ -1177,7 +1176,7 @@ interface .id_user {
 
     padding: 30px 60px 20px 20px;
     margin-bottom: 25px;
-    margin-top: 30px;
+margin-top: 30px;
 
 }
 
@@ -1453,6 +1452,10 @@ interface .declaration_photos .num_inspect {
     color: firebrick;
 }
 
+interface .declaration_photos p.saaq { margin-top: 20px; }
+
+interface .declaration_photos p i { font-size: 18px; }
+
 
 /******************************************* !!! LOGIN FORM !!! *******************************************/
 
@@ -1572,10 +1575,11 @@ interface .declaration_photos .num_inspect {
 profile_section {
 
     display: block;
-    width: 900px;
-    margin: 0px 0 0 50px;
+    width: 53%;
     z-index: 1;
-
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 profile_section h1 {

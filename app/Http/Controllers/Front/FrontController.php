@@ -48,12 +48,29 @@ class FrontController extends Controller
     }
 
 
+    //french home
+    public function french_home()
+    {
+        if (session()->has('packageData')) {
+            session()->forget('packageData');
+        }
+        $packages = Product::orderby('id', 'asc')->with('vehicle')->get();
+
+        return view('front.french.index', compact('packages'));
+    }
+
+
     public function add_package(Request $request)
     {
         session(['packageData' => $request->all()]);
-        
+        if($request->package_id == 2){
+            $owner = 1;
+        }else{
+            $owner = 0;
+        }
         return response()->json([
             'success' => true,
+            'owner'  => $owner,
             'msg'  => 'Data added in session'
         ]);
     }
@@ -64,6 +81,15 @@ class FrontController extends Controller
         return view('front.register');
     }
 
+    public function register_owner()
+    {
+        return view('front.owner_register');
+    }
+
+    public function add_driver_form()
+    {
+        return view('front.add_driver');
+    }
 
     public function drive_register(Request $request)
     {
@@ -112,6 +138,55 @@ class FrontController extends Controller
         }
 
     }
+
+    public function owner_register(Request $request)
+    {
+        $old = User::where('email', $request->email)->first();
+        if($old){
+            return response()->json([
+                'success' => false,
+                'msg'  => 'Email already exists.'
+            ]);
+        }
+        $user = new User;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->street = $request->street;
+        $user->appartment = $request->appartment;
+        $user->city = $request->city;
+        $user->pincode = $request->pincode;
+        $user->country = $request->countryname;
+        $user->save();
+
+        $info = new DriverInfo;
+        $info->user_id = $user->id;
+        $info->first_name = $request->first_name;
+        $info->last_name = $request->last_name;
+        $info->business_phone = $request->business_phone;
+        $info->license = $request->license;
+        $info->save();
+        $auth = Auth::loginUsingId($user->id);
+        $payment = $this->payment();
+        if($payment == true){
+            $this->savePackage();
+            if (session()->has('packageData')) {
+                session()->forget('packageData');
+            }
+            return response()->json([
+                'success' => true,
+                'msg'  => 'Package buy successfully.'
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'msg'  => 'Something went wrong.'
+            ]);
+        }
+
+    }
+
+
 
 
     public function payment()

@@ -86,6 +86,22 @@ class AdminController extends Controller
     
  
         }
+        $data->french_name = $request->french_name;
+        $data->french_description = $request->french_description;
+        if(!empty($request->french_slug)){
+            $ss = strtolower($request->french_slug);
+            $french_slug = str_replace(' ', '-', $ss);
+            $data->french_slug = $french_slug;
+        }else{
+            $ss = strtolower($request->french_name);
+            $french_slug = str_replace(' ', '-', $ss);
+            $data->french_slug = $french_slug;
+        }
+        $data->french_meta_title = $request->french_meta_title;
+        $data->french_meta_description = $request->french_meta_description;
+        $data->french_meta_keyword = $request->french_meta_keyword;
+
+
         $data->name = $request->name;
         $data->annual_price = $request->annual_price;
         $data->alt = $request->alt;
@@ -112,6 +128,7 @@ class AdminController extends Controller
                 $addon = new Vehicles;
                 $addon->vehicle = $vehicle;
                 $addon->product_id = $id;
+                $addon->french_vehicle = $request->french_vehicle[$key];
                 $addon->price = $request->price[$key];
                 $addon->annual_price = $request->annual_price[$key];
                 $addon->save();   
@@ -150,6 +167,22 @@ class AdminController extends Controller
             );
 
         $product = Product::find($id);
+        
+        $product->french_name = $request->french_name;
+        $product->french_description = $request->french_description;
+        if(!empty($request->french_slug)){
+            $ss = strtolower($request->french_slug);
+            $french_slug = str_replace(' ', '-', $ss);
+            $product->french_slug = $french_slug;
+        }else{
+            $ss = strtolower($request->french_name);
+            $french_slug = str_replace(' ', '-', $ss);
+            $product->french_slug = $french_slug;
+        }
+        $product->french_meta_title = $request->french_meta_title;
+        $product->french_meta_description = $request->french_meta_description;
+        $product->french_meta_keyword = $request->french_meta_keyword;
+
         $product->name = $request->name;
         $product->description = $request->description;
         $product->tab_title = $request->tab_title;
@@ -198,6 +231,7 @@ class AdminController extends Controller
                     $addon = new Vehicles;
                 }
                 $addon->vehicle = $vehicle;
+                $addon->french_vehicle = $request->french_vehicle[$key];
                 $addon->product_id = $id;
                 $addon->price = $request->price[$key];
                 $addon->annual_price = $request->annual_price[$key];

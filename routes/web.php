@@ -46,6 +46,7 @@ Route::get('/sign-in', [FrontController::class, 'login'])->name('sign_in');
 Route::post('/sign-in', [FrontController::class, 'sign_in'])->name('front.login');
 
 Route::post('/register-driver', [FrontController::class, 'drive_register'])->name('driver_register');
+Route::post('/register-owner', [FrontController::class, 'owner_register'])->name('owner_register');
 
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
@@ -82,6 +83,9 @@ Route::post('/send_query', [FrontController::class, 'send_query'])->name('send_q
 
 
 Route::get('/register-driver', [FrontController::class, 'register'])->name('register_driver');
+Route::get('/register-owner', [FrontController::class, 'register_owner'])->name('register_owner');
+Route::get('/add-driver', [FrontController::class, 'add_driver_form'])->name('add_driver_form');
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/my-profile', [FrontController::class, 'my_profile'])->name('my_profile');
     Route::get('/car-register', [FrontController::class, 'car_register_form'])->name('car_register_form');
@@ -98,6 +102,11 @@ Route::get('/config-cache', function() {
      $exitCode = Artisan::call('route:clear');
      return 'Config cache cleared';
  }); 
+
+ Route::prefix('fr')->group(function(){
+    Route::get('/', [FrontController::class, 'french_home'])->name('french_home');
+
+ });
 
 
 
