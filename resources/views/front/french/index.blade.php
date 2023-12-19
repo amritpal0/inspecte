@@ -144,10 +144,10 @@
                 <h2>{!! $p->french_name !!}</h2>
                 
                 <h3>{{$p->vehicle[0]->price}}$ <span class="months">/m</span></h3>
-                <input type="hidden" class="package_id" value="{{$p->id}}">
-                <input type="hidden" class="vehicle_id" value="{{$p->vehicle[0]->id}}">
-                <input type="hidden" class="vehicle_price" value="{{$p->vehicle[0]->price}}">
-                <input type="hidden" class="annual_price" value="{{$p->vehicle[0]->annual_price}}">
+                <input type="hidden" name="package_id" class="package_id" value="{{$p->id}}">
+                <input type="hidden" name="vehicle_id" class="vehicle_id" value="{{$p->vehicle[0]->id}}">
+                <input type="hidden" name="vehicle_price" class="vehicle_price" value="{{$p->vehicle[0]->price}}">
+                <input type="hidden" name="annual_price" class="annual_price" value="{{$p->vehicle[0]->annual_price}}">
                 <ul class="options">
                     @foreach($p->vehicle as $v)
                     <li>{{$v->french_vehicle}}: ${{$v->price}} /mois</li>
@@ -316,7 +316,11 @@
             },
             success:function(response){
                 if(response.success == true){
-                    window.location.href = "{{route('register_driver')}}";
+                    if(response.owner == 1){
+                        window.location.href = "{{route('register_owner')}}";
+                    }else{
+                        window.location.href = "{{route('register_driver')}}";
+                    }
                 }
             },
             error:function(response){

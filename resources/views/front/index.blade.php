@@ -289,7 +289,11 @@
             },
             success:function(response){
                 if(response.success == true){
-                    window.location.href = "{{route('register_driver')}}";
+                    if(response.owner == 1){
+                        window.location.href = "{{route('register_owner')}}";
+                    }else{
+                        window.location.href = "{{route('register_driver')}}";
+                    }
                 }
             },
             error:function(response){
@@ -313,7 +317,11 @@
             },
             success:function(response){
                 if(response.success == true){
-                    window.location.href = "{{route('register_driver')}}";
+                    if(response.owner == 1){
+                        window.location.href = "{{route('register_owner')}}";
+                    }else{
+                        window.location.href = "{{route('register_driver')}}";
+                    }
                 }
             },
             error:function(response){

@@ -17,8 +17,8 @@
     <input name="business_phone" id="business_phone" type="text" placeholder="Business name" />
     
     <label><i class="fa-solid fa-lock"></i> Password</label>
-    <input name="password" id="cxlient_name" type="email" placeholder="Password" required />
-    <input name="confirm_password" id="client_name" type="email" placeholder="Confirm password" required />
+    <input name="password" id="cxlient_name" type="password" placeholder="Password" required />
+    <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
     
 </form>
 
@@ -66,9 +66,6 @@
             business_phone: {
                 required: true
             },
-            license: {
-                required: true
-            },
             password: {
                 required: true
             },
@@ -90,9 +87,6 @@
                 required: "This field is required."
             },
             business_phone: {
-                required: "This field is required."
-            },
-            license: {
                 required: "This field is required."
             },
             password: {
@@ -121,7 +115,7 @@
             street: {
                 required: true
             },
-            civic_number: {
+            address: {
                 required: true
             },
         },
@@ -141,7 +135,7 @@
             street: {
                 required: "This field is required."
             },
-            civic_number: {
+            address: {
                 required: "This field is required."
             },
         },
@@ -153,7 +147,7 @@
         if($("#driver_form").valid() && $("#address_profile").valid()){
             $.ajax({
                 type: "POST",
-                url: "{{route('driver_register')}}",
+                url: "{{route('owner_register')}}",
                 data: $('#driver_form, .address_profile').serialize(),
                 success:function(response){
                     if(response.success == true){

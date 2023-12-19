@@ -139,6 +139,48 @@ class FrontController extends Controller
 
     }
 
+    public function add_driver(Request $request)
+    {
+        $old = User::where('email', $request->email)->get()->pluck('email')->toArray();
+        $forms = $request->formDataArray;
+        $user = auth()->user();
+        foreach($forms as $field){
+            if(in_array($field[2]['value'], $old)){
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Email already exist.'
+                ]);
+            }
+            if(!empty($field[0]['value'])){
+
+                $user = new User;
+                $user->email = $field[2]['value'];
+                $user->password = Hash::make($field[12]['value']);
+                $user->phone = $field[3]['value'];
+                $user->street = $field[7]['value'];
+                $user->appartment = $field[8]['value'];
+                $user->city = $field[9]['value'];
+                $user->pincode = $field[10]['value'];
+                $user->country = $field[11]['value'];
+                $user->save();
+
+                $info = new DriverInfo;
+                $info->user_id = $user->id;
+                $info->driver_number = $field[5]['value'];
+                $info->first_name = $field[0]['value'];
+                $info->last_name = $field[1]['value'];
+                // $info->civic_number = $field[0]['value'];
+                $info->business_phone = $field[4]['value'];
+                $info->license = $field[6]['value'];
+                $info->save();
+            }
+        }
+        return response()->json([
+            'success' => true,
+            'msg' => 'Vehicle registered.'
+        ]);
+    }
+
     public function owner_register(Request $request)
     {
         $old = User::where('email', $request->email)->first();
@@ -152,6 +194,7 @@ class FrontController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->phone = $request->phone;
+        $user->is_owner = 1;
         $user->street = $request->street;
         $user->appartment = $request->appartment;
         $user->city = $request->city;
@@ -164,7 +207,6 @@ class FrontController extends Controller
         $info->first_name = $request->first_name;
         $info->last_name = $request->last_name;
         $info->business_phone = $request->business_phone;
-        $info->license = $request->license;
         $info->save();
         $auth = Auth::loginUsingId($user->id);
         $payment = $this->payment();
@@ -239,25 +281,32 @@ class FrontController extends Controller
 
     public function car_register(Request $request)
     {
-        $old = VehicleInfo::where('registration', $request->registration)->first();
-        if($old){
-            return response()->json([
-                'success' => false,
-                'msg'  => 'Vehicle already exists.'
-            ]);
-        }
+        $old = VehicleInfo::get()->pluck('registration')->toArray();
+        // dd($request->formDataArray);
+        $forms = $request->formDataArray;
         $user = auth()->user();
-        $info = new VehicleInfo;
-        $info->user_id = $user->id;
-        $info->registration = $request->registration;
-        $info->brand = $request->brand;
-        $info->model = $request->model;
-        $info->year = $request->year;
-        $info->accessory_number = $request->accessory_number;
-        if($request->electric){
-            $info->electric = $request->electric;
+        foreach($forms as $field){
+            if(in_array($field[0]['value'], $old)){
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Vehicle already exist.'
+                ]);
+            }
+            if(!empty($field[0]['value'])){
+
+                $info = new VehicleInfo;
+                $info->user_id = $user->id;
+                $info->registration = $field[0]['value'] ?? null;;
+                $info->brand = $field[1]['value'] ?? null;;
+                $info->model = $field[2]['value'] ?? null;;
+                $info->year = $field[3]['value'] ?? null;;
+                $info->accessory_number = $field[4]['value'] ?? null;;
+                if(isset($field['electric'])){
+                    $info->electric = $field['electric'][0]['value'] ?? null;
+                }
+                $info->save();
+            }
         }
-        $info->save();
         return response()->json([
             'success' => true,
             'msg' => 'Vehicle registered.'

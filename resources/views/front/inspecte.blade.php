@@ -38,10 +38,10 @@
 
                 <ul>
 
-                    <li>Left headlights <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Right headlights <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Left turn signals <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Right turn signals <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Left headlights <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Right headlights <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Left turn signals <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Right turn signals <input type="checkbox" value=1 id="" name="check" /></li>
 
                 </ul>
                 
@@ -49,13 +49,13 @@
                 
                 <ul>
                     
-                    <li>Left headlights <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Right headlights <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Left turn signals <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Right turn signals <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Left brake light <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>Right brake light <input type="checkbox" value="None" id="" name="check" /></li>
-                    <li>License plate light <input type="checkbox" value="None" id="" name="check" /></li>
+                    <li>Left headlights <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Right headlights <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Left turn signals <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Right turn signals <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Left brake light <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>Right brake light <input type="checkbox" value=1 id="" name="check" /></li>
+                    <li>License plate light <input type="checkbox" value=1 id="" name="check" /></li>
                     
                 </ul>
                 
@@ -72,10 +72,10 @@
 
                 <ul>
 
-                    <li><input type="checkbox" value="None" id="" name="check" /> Side mirror</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Front right tire</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Right rear tire</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Right tire valves</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Side mirror</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Front right tire</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Right rear tire</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Right tire valves</li>
                     
                 </ul>
                 
@@ -83,10 +83,10 @@
                 
                 <ul>
                     
-                    <li><input type="checkbox" value="None" id="" name="check" /> Side mirror</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Front left tire</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Left rear tire</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Left tire valves</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Side mirror</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Front left tire</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Left rear tire</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Left tire valves</li>
                     
                 </ul>
                 
@@ -94,13 +94,13 @@
                 
                 <ul>
                     
-                    <li><input type="checkbox" value="None" id="" name="check" /> Honk</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Brake fluid level</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Belt extension</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Washer fluid level</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Wipers</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Hand brake</li>
-                    <li><input type="checkbox" value="None" id="" name="check" /> Roof taxi lantern</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Honk</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Brake fluid level</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Belt extension</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Washer fluid level</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Wipers</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Hand brake</li>
+                    <li><input type="checkbox" value=1 id="" name="check" /> Roof taxi lantern</li>
                     
                 </ul>
                 
@@ -119,25 +119,25 @@
                 <ul>
                     
                     <li>
-                        <input type="checkbox" value="None" id="" name="check" /> 
+                        <input type="checkbox" value=1 id="" name="check" /> 
                         Geolocation system (Calendar)
                         <input type="text">
                     </li>
                     
                     <li>
-                        <input type="checkbox" value="None" id="" name="check" /> 
+                        <input type="checkbox" value=1 id="" name="check" /> 
                         Immobilizer device
                         <input type="text">
                     </li>
                     
                     <li>
-                        <input type="checkbox" value="None" id="" name="check" /> 
+                        <input type="checkbox" value=1 id="" name="check" /> 
                         Standard equipment missing or damaged?
                         <input type="text">
                     </li>
                     
                     <li>
-                        <input type="checkbox" value="None" id="" name="check" /> 
+                        <input type="checkbox" value=1 id="" name="check" /> 
                         The ramp or lifting platform and anchors for adapted vehicles
                     </li>
                     
@@ -209,7 +209,7 @@
                 
                 <h2>Confirmation of my declaration.</h2>
                 
-                <input type="checkbox" value="None" id="" name="check" /> 
+                <input type="checkbox" value=1 id="" name="check" /> 
                 I confirm that all elements have been verified by respecting article 55 of law 17.
 
                 <p class="saaq"><i class="fa-solid fa-circle-exclamation"></i> We respect all the requirements of the <a href="https://saaq.gouv.qc.ca/" target="_blank">SAAQ</a> and <a href="https://www.transports.gouv.qc.ca/fr/entreprises-partenaires/trpa/chauffeurs-proprietaires/Pages/chauffeurs-proprietaires.aspx" target="_blank">Transport Québec.</a></p>

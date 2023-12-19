@@ -3,43 +3,188 @@
 @section('content')
 
 
-<profile_section>
+<profile_section class="add-driver">
 
 
 <h2>Comercial Driver's Assigned profile</h2>
 <p>Please complete the information with that appearing <span class="underline"> on your valid driving license.</span></p>
 
-<form>
-    
-    <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
-    <input name="name" id="client_name" type="text" placeholder="First name" required />
-    <input name="name" id="client_name" type="text" placeholder="Last name" required />
-    <input name="name" id="client_name" type="email" placeholder="Email" required />
-    <input name="name" id="client_name" type="text" placeholder="Phone number" required />
-    <input name="name" id="client_name" type="text" placeholder="Business phone number" />
-    
-    <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-    <input name="name" id="client_name" type="email" placeholder="Assigned driver number" required />
-    <input name="name" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
-    
-</form>
+<div class="collaps-div">
+    <button class="collapsible" onclick="toggleSection(1)">First Driver</button>
+    <div class="content" id="section1" style="display: block;">
+        <form id="driver_form1">
+        
+            <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
+            <input name="first_name" id="client_name" type="text" placeholder="First name" required />
+            <input name="last_name" id="client_name" type="text" placeholder="Last name" required />
+            <input name="email" id="client_name" type="email" placeholder="Email" required />
+            <input name="phone" id="client_name" type="text" placeholder="Phone number" required />
+            <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
+            
+            <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
+            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            
+        </form>
 
-<form class="address_profile">
-    
-    <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
-    <input name="name" id="client_name" type="text" placeholder="Address" required />
-    <input name="name" id="client_name" type="text" placeholder="Apartment" required />
-    <input name="name" id="client_name" type="text" placeholder="City" required />
-    <input name="name" id="client_name" type="text" placeholder="Postal code" required />
-    <input name="name" id="client_name" type="text" placeholder="Country" required />
-    
-    <label><i class="fa-solid fa-lock"></i> Password</label>
-    <input name="name" id="client_name" type="email" placeholder="Password" required />
-    <input name="name" id="client_name" type="email" placeholder="Confirm password" required />
+        <form class="address_profile1" id="address_profile1">
+            
+            <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
+            <input name="address" id="client_name" type="text" placeholder="Address" required />
+            <input name="appartment" id="client_name" type="text" placeholder="Apartment" required />
+            <input name="city" id="client_name" type="text" placeholder="City" required />
+            <input name="pincode" id="client_name" type="text" placeholder="Postal code" required />
+            <input name="countryname" id="client_name" type="text" placeholder="Country" required />
+            
+            <label><i class="fa-solid fa-lock"></i> Password</label>
+            <input name="password" id="client_name" type="password" placeholder="Password" required />
+            <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
 
-</form>
+        </form>
+    </div>
+</div>
 
-<input class="btn_profile" type="button" id="contact_form" value="Save Now" />
+<div class="collaps-div">
+    <button class="collapsible" onclick="toggleSection(2)">Second Driver</button>
+    <div class="content" id="section2" style="display: none;" >
+        <form id="driver_form2">
+        
+            <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
+            <input name="first_name" id="client_name" type="text" placeholder="First name" required />
+            <input name="last_name" id="client_name" type="text" placeholder="Last name" required />
+            <input name="email" id="client_name" type="email" placeholder="Email" required />
+            <input name="phone" id="client_name" type="text" placeholder="Phone number" required />
+            <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
+            
+            <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
+            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            
+        </form>
+
+        <form class="address_profile2" id="address_profile2">
+            
+            <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
+            <input name="address" id="client_name" type="text" placeholder="Address" required />
+            <input name="appartment" id="client_name" type="text" placeholder="Apartment" required />
+            <input name="city" id="client_name" type="text" placeholder="City" required />
+            <input name="pincode" id="client_name" type="text" placeholder="Postal code" required />
+            <input name="countryname" id="client_name" type="text" placeholder="Country" required />
+            
+            <label><i class="fa-solid fa-lock"></i> Password</label>
+            <input name="password" id="client_name" type="password" placeholder="Password" required />
+            <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
+
+        </form>
+    </div>
+</div>
+
+<div class="collaps-div">
+    <button class="collapsible" onclick="toggleSection(3)">Third Driver</button>
+    <div class="content" id="section3"  style="display: none;">
+        <form id="driver_form3">
+        
+            <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
+            <input name="first_name" id="client_name" type="text" placeholder="First name" required />
+            <input name="last_name" id="client_name" type="text" placeholder="Last name" required />
+            <input name="email" id="client_name" type="email" placeholder="Email" required />
+            <input name="phone" id="client_name" type="text" placeholder="Phone number" required />
+            <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
+            
+            <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
+            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            
+        </form>
+
+        <form class="address_profile3" id="address_profile3">
+            
+            <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
+            <input name="address" id="client_name" type="text" placeholder="Address" required />
+            <input name="appartment" id="client_name" type="text" placeholder="Apartment" required />
+            <input name="city" id="client_name" type="text" placeholder="City" required />
+            <input name="pincode" id="client_name" type="text" placeholder="Postal code" required />
+            <input name="countryname" id="client_name" type="text" placeholder="Country" required />
+            
+            <label><i class="fa-solid fa-lock"></i> Password</label>
+            <input name="password" id="client_name" type="password" placeholder="Password" required />
+            <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
+
+        </form>
+    </div>
+</div>
+
+<div class="collaps-div">
+    <button class="collapsible" onclick="toggleSection(4)">Forth Driver</button>
+    <div class="content" id="section4"  style="display: none;">
+        <form id="driver_form4">
+        
+            <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
+            <input name="first_name" id="client_name" type="text" placeholder="First name" required />
+            <input name="last_name" id="client_name" type="text" placeholder="Last name" required />
+            <input name="email" id="client_name" type="email" placeholder="Email" required />
+            <input name="phone" id="client_name" type="text" placeholder="Phone number" required />
+            <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
+            
+            <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
+            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            
+        </form>
+
+        <form class="address_profile4" id="address_profile4">
+            
+            <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
+            <input name="address" id="client_name" type="text" placeholder="Address" required />
+            <input name="appartment" id="client_name" type="text" placeholder="Apartment" required />
+            <input name="city" id="client_name" type="text" placeholder="City" required />
+            <input name="pincode" id="client_name" type="text" placeholder="Postal code" required />
+            <input name="countryname" id="client_name" type="text" placeholder="Country" required />
+            
+            <label><i class="fa-solid fa-lock"></i> Password</label>
+            <input name="password" id="client_name" type="password" placeholder="Password" required />
+            <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
+
+        </form>
+    </div>
+</div>
+
+<div class="collaps-div">
+    <button class="collapsible" onclick="toggleSection(5)">Fivth Driver</button>
+    <div class="content" id="section5" style="display: none;" >
+        <form id="driver_form5">
+        
+            <label><i class="fa-solid fa-circle-user"></i> Personal information</label>
+            <input name="first_name" id="client_name" type="text" placeholder="First name" required />
+            <input name="last_name" id="client_name" type="text" placeholder="Last name" required />
+            <input name="email" id="client_name" type="email" placeholder="Email" required />
+            <input name="phone" id="client_name" type="text" placeholder="Phone number" required />
+            <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
+            
+            <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
+            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            
+        </form>
+
+        <form class="address_profile5" id="address_profile5">
+            
+            <label><i class="fa-solid fa-location-dot"></i> Valid address</label>
+            <input name="address" id="client_name" type="text" placeholder="Address" required />
+            <input name="appartment" id="client_name" type="text" placeholder="Apartment" required />
+            <input name="city" id="client_name" type="text" placeholder="City" required />
+            <input name="pincode" id="client_name" type="text" placeholder="Postal code" required />
+            <input name="countryname" id="client_name" type="text" placeholder="Country" required />
+            
+            <label><i class="fa-solid fa-lock"></i> Password</label>
+            <input name="password" id="client_name" type="password" placeholder="Password" required />
+            <input name="confirm_password" id="client_name" type="password" placeholder="Confirm password" required />
+
+        </form>
+    </div>
+</div>
+
+<input class="btn_profile add_driver" type="button" id="contact_form" value="Save Now" />
 
 <div class="clear_all"></div>
 
@@ -49,118 +194,50 @@
 @endsection
 @push('custom-scripts')
 <script>
+
+    function toggleSection(sectionNumber) { 
+        var section = document.getElementById('section' + sectionNumber);
+        if (section.style.display === 'block') {
+            section.style.display = 'none';
+        } else {
+            section.style.display = 'block';
+        }
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    $("#driver_form").validate({
-        rules: {
-            first_name: {
-                required: true
-            },
-            last_name: {
-                required: true
-            },
-            phone: {
-                required: true
-            },
-            email: {
-                required: true
-            },
-            business_phone: {
-                required: true
-            },
-            license: {
-                required: true
-            },
-            password: {
-                required: true
-            },
-            confirm_password: {
-                required: true
-            },
-        },
-        messages: {
-            first_name: {
-                required: "This field is required."
-            },
-            last_name: {
-                required: "This field is required."
-            },
-            phone: {
-                required: "This field is required."
-            },
-            email: {
-                required: "This field is required."
-            },
-            business_phone: {
-                required: "This field is required."
-            },
-            license: {
-                required: "This field is required."
-            },
-            password: {
-                required: "This field is required."
-            },
-            confirm_password: {
-                required: "This field is required."
-            },
-        },
-    });
 
-    $("#address_profile").validate({
-        rules: {
-            countryname: {
-                required: true
-            },
-            pincode: {
-                required: true
-            },
-            city: {
-                required: true
-            },
-            appartment: {
-                required: true
-            },
-            street: {
-                required: true
-            },
-            civic_number: {
-                required: true
-            },
-        },
-        messages: {
-            countryname: {
-                required: "This field is required."
-            },
-            pincode: {
-                required: "This field is required."
-            },
-            city: {
-                required: "This field is required."
-            },
-            appartment: {
-                required: "This field is required."
-            },
-            street: {
-                required: "This field is required."
-            },
-            civic_number: {
-                required: "This field is required."
-            },
-        },
-    });
+    $('.add_driver').on('click', function(){
+        var valid = true;
 
+        $('.collaps-div:visible').each(function () {
+            var sectionNumber = $(this).find('.collapsible').attr('onclick').match(/\d+/)[0]; 
+            var carForm = $(this).find('form#driver_form' + sectionNumber);
+            var accessoryForm = $(this).find('form#address_profile' + sectionNumber);
+            if (!carForm.valid() || !accessoryForm.valid()) {
+                valid = false;
+                alert('Please fill all the fields.');
+            }
+        }); 
+        if(valid){
+            var formDataArray = [];
 
-    $('.driver_register').on('click', function(){
-        $('.register_msg').empty();
-        if($("#driver_form").valid() && $("#address_profile").valid()){
+            $('.collaps-div:visible').each(function () {
+                var sectionNumber = $(this).find('.collapsible').attr('onclick').match(/\d+/)[0];
+
+                var formData = $(this).find('form#driver_form' + sectionNumber + ', form#address_profile' + sectionNumber).serializeArray();
+
+                formDataArray.push(formData);
+            });
+
             $.ajax({
                 type: "POST",
-                url: "{{route('driver_register')}}",
-                data: $('#driver_form, .address_profile').serialize(),
+                url: "{{route('add_driver')}}",
+                data: { formDataArray: formDataArray },
                 success:function(response){
                     if(response.success == true){
                         window.location.href = "{{route('car_register_form')}}";

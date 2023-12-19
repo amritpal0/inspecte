@@ -85,6 +85,7 @@ Route::post('/send_query', [FrontController::class, 'send_query'])->name('send_q
 Route::get('/register-driver', [FrontController::class, 'register'])->name('register_driver');
 Route::get('/register-owner', [FrontController::class, 'register_owner'])->name('register_owner');
 Route::get('/add-driver', [FrontController::class, 'add_driver_form'])->name('add_driver_form');
+Route::post('/add-driver', [FrontController::class, 'add_driver'])->name('add_driver');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/my-profile', [FrontController::class, 'my_profile'])->name('my_profile');

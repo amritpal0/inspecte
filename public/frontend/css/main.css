@@ -2768,3 +2768,26 @@ p.login_msg {
     text-align: center;
     color: red;
 }
+
+
+.owner-page label, .add-driver label{
+    margin-top: 0px;
+}
+
+.owner-page p, .add-driver p{
+    margin-bottom: 0px;
+}
+
+button.collapsible {
+    width: 100%;
+    background: #eaeaea;
+    border: navajowhite;
+    padding: 15px 10px;
+    margin-bottom: 17px;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: justify;
+    cursor: pointer;
+}
