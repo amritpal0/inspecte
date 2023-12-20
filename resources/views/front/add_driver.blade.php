@@ -22,8 +22,8 @@
             <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
             
             <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
-            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            <input name="driver_no" id="client_name" type="text" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="text" placeholder="Authorized driver's license number - SAAQ" required />
             
         </form>
 
@@ -57,8 +57,8 @@
             <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
             
             <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
-            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            <input name="driver_no" id="client_name" type="text" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="text" placeholder="Authorized driver's license number - SAAQ" required />
             
         </form>
 
@@ -92,8 +92,8 @@
             <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
             
             <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
-            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            <input name="driver_no" id="client_name" type="text" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="text" placeholder="Authorized driver's license number - SAAQ" required />
             
         </form>
 
@@ -127,8 +127,8 @@
             <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
             
             <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
-            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            <input name="driver_no" id="client_name" type="text" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="text" placeholder="Authorized driver's license number - SAAQ" required />
             
         </form>
 
@@ -162,8 +162,8 @@
             <input name="business_phone" id="client_name" type="text" placeholder="Business phone number" />
             
             <label><i class="fa-solid fa-taxi"></i> Authorized driver</label>
-            <input name="driver_no" id="client_name" type="email" placeholder="Assigned driver number" required />
-            <input name="license" id="client_name" type="email" placeholder="Authorized driver's license number - SAAQ" required />
+            <input name="driver_no" id="client_name" type="text" placeholder="Assigned driver number" required />
+            <input name="license" id="client_name" type="text" placeholder="Authorized driver's license number - SAAQ" required />
             
         </form>
 
@@ -240,7 +240,7 @@
                 data: { formDataArray: formDataArray },
                 success:function(response){
                     if(response.success == true){
-                        window.location.href = "{{route('car_register_form')}}";
+                        window.location.href = "{{asset('')}}";
                     }
                     else{
                         alert(response.msg);
@@ -249,7 +249,7 @@
                 },
                 error:function(response){
                     
-                    alert('Something went wrong.');
+                    alert(response.msg);
                 }
             })
         }

@@ -38,7 +38,7 @@
 
                         <p>Ccheck if your vehicle is electric.</p>
                         <p>You will need to fill out the battery percentage in the inspection form.</p>
-                        <input type="checkbox" value=1 id="electric1" name="electric[]" /> Electric vehicles
+                        <input type="checkbox" value='1' id="electric1" name="electric[]" /> Electric vehicles
                     </div>
 
                 </form>
@@ -69,7 +69,7 @@
 
                         <p>Ccheck if your vehicle is electric.</p>
                         <p>You will need to fill out the battery percentage in the inspection form.</p>
-                        <input type="checkbox" value=1 id="electric2" name="electric[]" /> Electric vehicles
+                        <input type="checkbox" value='1' id="electric2" name="electric[]" /> Electric vehicles
                     </div>
 
                 </form>
@@ -100,7 +100,7 @@
 
                         <p>Ccheck if your vehicle is electric.</p>
                         <p>You will need to fill out the battery percentage in the inspection form.</p>
-                        <input type="checkbox" value=1 id="electric3" name="electric[]" /> Electric vehicles
+                        <input type="checkbox" value='1' id="electric3" name="electric[]" /> Electric vehicles
                     </div>
 
                 </form>
@@ -131,7 +131,7 @@
 
                         <p>Ccheck if your vehicle is electric.</p>
                         <p>You will need to fill out the battery percentage in the inspection form.</p>
-                        <input type="checkbox" value=1 id="electric4" name="electric[]" /> Electric vehicles
+                        <input type="checkbox" value='1' id="electric4" name="electric[]" /> Electric vehicles
                     </div>
 
                 </form>
@@ -162,7 +162,7 @@
 
                         <p>Ccheck if your vehicle is electric.</p>
                         <p>You will need to fill out the battery percentage in the inspection form.</p>
-                        <input type="checkbox" value=1 id="electric5" name="electric[]" /> Electric vehicles
+                        <input type="checkbox" value='1' id="electric5" name="electric[]" /> Electric vehicles
                     </div>
 
                 </form>
@@ -279,7 +279,7 @@
 
                 },
                 error:function(response){
-                    console.log(response);
+                    alert(response.msg);
                 }
             })
         }

@@ -371,7 +371,7 @@
                 data: $('#login_form').serialize(),
                 success:function(response){
                     if(response.success == true){
-                        window.location.href = "{{route('inspecte_form')}}";
+                        window.location.href = "{{asset('')}}";
                     }else{
                         $('.login_msg').text(response.msg);
                     }

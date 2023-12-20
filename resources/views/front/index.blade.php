@@ -5,6 +5,29 @@
 
 <div class="clear_all"></div>
 
+@if(auth()->user())
+<div class="dashboard_div">
+    @if( auth()->user()->is_owner == 1)
+    <!-- <div class="owner_div">
+        Owneridv
+    </div> -->
+    @else
+    <div class="driver_div">
+        <div class="button_div">
+            <div class="form_btn profile_btn">
+                <a href="{{route('inspecte_form')}}">Inpecte Form</a>
+            </div>
+            <div class="prvious_btn profile_btn">
+                <a href="#">Previous form</a>
+            </div>
+            <div class="add_more profile_btn">
+                <a href="#">Add Vehicle</a>
+            </div>
+        </div>
+    </div>
+    @endif
+</div>
+@endif
 <div class="home_slider_en"><div class="slider_01"><a href="#forfaits"></a></div></div>
 <div class="home_slider_mobile_en"><div class="slider_01"><a href="#forfaits"></a></div></div>
 

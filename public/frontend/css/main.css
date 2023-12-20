@@ -1218,7 +1218,7 @@ interface .car_01 {
     height: 660px;
     
     left: 250px;
-    top: 330px;
+    top: 230px;
 }
 
 interface .car_02 {
@@ -1234,7 +1234,7 @@ interface .car_02 {
     height: 660px;
     
     left: 395px;
-    top: 330px;
+    top: 230px;
 }
 
 
@@ -2790,4 +2790,30 @@ button.collapsible {
     letter-spacing: 1px;
     text-align: justify;
     cursor: pointer;
+}
+
+.driver_div {
+    height: 100px;
+    max-width: 1170px;
+    margin: auto;
+    padding: 100px 0px 40px 0px;
+    width: 100%;
+}
+.button_div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.profile_btn a {
+    border-radius: 25px;
+    background: #00a3fe;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 24px;
+}
+
+.dashboard_div {
+    background: #eaeaea;
+    margin: 35px 0px;
 }

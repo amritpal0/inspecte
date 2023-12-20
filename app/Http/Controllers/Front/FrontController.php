@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\DriverInfo;
 use App\Models\OrderPackage;
 use App\Models\VehicleInfo;
+use Illuminate\Support\Facades\DB;
+
 
 
 use App\Models\Product;
@@ -141,44 +143,57 @@ class FrontController extends Controller
 
     public function add_driver(Request $request)
     {
-        $old = User::where('email', $request->email)->get()->pluck('email')->toArray();
-        $forms = $request->formDataArray;
-        $user = auth()->user();
-        foreach($forms as $field){
-            if(in_array($field[2]['value'], $old)){
-                return response()->json([
-                    'success' => false,
-                    'msg' => 'Email already exist.'
-                ]);
+        try {
+            DB::beginTransaction();
+            $old = User::where('email', $request->email)->get()->pluck('email')->toArray();
+            $forms = $request->formDataArray;
+            $auth = auth()->user();
+            foreach($forms as $field){
+                if(in_array($field[2]['value'], $old)){
+                    DB::rollback();
+                    return response()->json([
+                        'success' => false,
+                        'msg' => $field[2]['value'].' email already exist.'
+                    ]);
+                }
+                if(!empty($field[0]['value'])){
+    
+                    $user = new User;
+                    $user->email = $field[2]['value'];
+                    $user->password = Hash::make($field[12]['value']);
+                    $user->owner_id = $auth->id;
+                    $user->phone = $field[3]['value'];
+                    $user->street = $field[7]['value'];
+                    $user->appartment = $field[8]['value'];
+                    $user->city = $field[9]['value'];
+                    $user->pincode = $field[10]['value'];
+                    $user->country = $field[11]['value'];
+                    $user->save();
+    
+                    $info = new DriverInfo;
+                    $info->user_id = $user->id;
+                    $info->driver_number = $field[5]['value'];
+                    $info->first_name = $field[0]['value'];
+                    $info->last_name = $field[1]['value'];
+                    // $info->civic_number = $field[0]['value'];
+                    $info->business_phone = $field[4]['value'];
+                    $info->license = $field[6]['value'];
+                    $info->save();
+                }
             }
-            if(!empty($field[0]['value'])){
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Vehicle registered.'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
 
-                $user = new User;
-                $user->email = $field[2]['value'];
-                $user->password = Hash::make($field[12]['value']);
-                $user->phone = $field[3]['value'];
-                $user->street = $field[7]['value'];
-                $user->appartment = $field[8]['value'];
-                $user->city = $field[9]['value'];
-                $user->pincode = $field[10]['value'];
-                $user->country = $field[11]['value'];
-                $user->save();
-
-                $info = new DriverInfo;
-                $info->user_id = $user->id;
-                $info->driver_number = $field[5]['value'];
-                $info->first_name = $field[0]['value'];
-                $info->last_name = $field[1]['value'];
-                // $info->civic_number = $field[0]['value'];
-                $info->business_phone = $field[4]['value'];
-                $info->license = $field[6]['value'];
-                $info->save();
-            }
+            return response()->json([
+                'success' => false,
+                'msg' => 'An error occurred. Transaction rolled back.'
+            ]);
         }
-        return response()->json([
-            'success' => true,
-            'msg' => 'Vehicle registered.'
-        ]);
     }
 
     public function owner_register(Request $request)
@@ -278,35 +293,87 @@ class FrontController extends Controller
         return view('front.car-register');
     }
 
+    public function driver_car_register_form()
+    {
+        return view('front.car-register-driver');
+    }
+
 
     public function car_register(Request $request)
     {
-        $old = VehicleInfo::get()->pluck('registration')->toArray();
-        // dd($request->formDataArray);
-        $forms = $request->formDataArray;
-        $user = auth()->user();
-        foreach($forms as $field){
-            if(in_array($field[0]['value'], $old)){
+        try {
+            DB::beginTransaction();
+            $old = VehicleInfo::pluck('registration')->toArray();
+            $forms = $request->formDataArray;
+            $user = auth()->user();
+            $errorOccurred = false;
+            foreach($forms as $field){
+                if(in_array((string)$field[0]['value'], $old, true)){
+                    $errorOccurred = true;
+                    break;
+                }
+                if(!empty($field[0]['value'])){
+
+                    $info = new VehicleInfo;
+                    $info->user_id = $user->id;
+                    $info->registration = $field[0]['value'] ?? null;;
+                    $info->brand = $field[1]['value'] ?? null;;
+                    $info->model = $field[2]['value'] ?? null;;
+                    $info->year = $field[3]['value'] ?? null;;
+                    $info->accessory_number = $field[4]['value'] ?? null;;
+                    if(isset($field['electric'])){
+                        $info->electric = 1;
+                    }else{
+                        $info->electric = 0;
+                    }
+                    $info->save();
+                }
+            }
+
+            if ($errorOccurred) {
+                DB::rollback();
                 return response()->json([
                     'success' => false,
-                    'msg' => 'Vehicle already exist.'
+                    'msg' => $field[0]['value'] . ' vehicle already exists.'
                 ]);
             }
-            if(!empty($field[0]['value'])){
 
-                $info = new VehicleInfo;
-                $info->user_id = $user->id;
-                $info->registration = $field[0]['value'] ?? null;;
-                $info->brand = $field[1]['value'] ?? null;;
-                $info->model = $field[2]['value'] ?? null;;
-                $info->year = $field[3]['value'] ?? null;;
-                $info->accessory_number = $field[4]['value'] ?? null;;
-                if(isset($field['electric'])){
-                    $info->electric = $field['electric'][0]['value'] ?? null;
-                }
-                $info->save();
-            }
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => 'Vehicle registered.'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'msg' => 'An error occurred. Transaction rolled back.'
+            ]);
         }
+    }
+
+    public function driver_car_register(Request $request)
+    {
+        $old = VehicleInfo::where('registration', $request->registration)->first();
+        if($old){
+            return response()->json([
+                'success' => false,
+                'msg'  => 'Vehicle already exists.'
+            ]);
+        }
+        // dd($request->all());
+        $user = auth()->user();
+        $info = new VehicleInfo;
+        $info->user_id = $user->id;
+        $info->registration = $request->registration;
+        $info->brand = $request->brand;
+        $info->model = $request->model;
+        $info->year = $request->year;
+        $info->accessory_number = $request->accessory_number;
+        if($request->electric){
+            $info->electric = $request->electric;
+        }
+        $info->save();
         return response()->json([
             'success' => true,
             'msg' => 'Vehicle registered.'

@@ -70,8 +70,17 @@
 
                     <li class="email"><a href="mailto:info@proinspecte.ca"><i class="fa-solid fa-paper-plane"></i> info@proinspecte.ca</a></li>
                     
-                    <li><a href="{{route('front.login')}}"><i class="fa-solid fa-lock"></i> Sign in</a></li>
-
+                    <li>
+                        @if(auth()->user())
+                        <a href="javascript:void(0)" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        @else
+                        <a href="{{route('front.login')}}"><i class="fa-solid fa-lock"></i> Sign in</a>
+                        @endif
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;" class="d-none">
+                        @csrf
+                    </form>
                     <li class="language"><a href="index.htm">FR</a></li>
 
                     <li class="social_media">
@@ -99,7 +108,9 @@
 
                 <ul class="socials">
                     
-                    <li><a href="login_en.htm"><i class="fa-solid fa-lock"></i> Sign in</a></li>
+                    <li>
+                        <a href="login_en.htm"><i class="fa-solid fa-lock"></i> Sign in</a>
+                    </li>
 
                     <li class="language"><a href="index.htm">FR</a></li>
                     

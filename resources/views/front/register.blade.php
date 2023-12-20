@@ -161,7 +161,7 @@
                 data: $('#driver_form, .address_profile').serialize(),
                 success:function(response){
                     if(response.success == true){
-                        window.location.href = "{{route('car_register_form')}}";
+                        window.location.href = "{{route('driver_car_register_form')}}";
                     }
                     else{
                         alert(response.msg);
