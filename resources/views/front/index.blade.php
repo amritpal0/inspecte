@@ -15,10 +15,20 @@
     <div class="driver_div">
         <div class="button_div">
             <div class="form_btn profile_btn">
+                @if($formSubmitted == false && auth()->user()->owner_id == 0)
                 <a href="{{route('inspecte_form')}}">Inpecte Form</a>
+                @elseif($formSubmitted == false && auth()->user()->owner_id != 0)
+                    @if($vehicle == false)
+                     <a href="{{route('choose_vehicle_form')}}">Choose Vehicle</a>
+                     @else
+                     <a href="{{route('inspecte_form', ['driver' => 1])}}">Inpecte Form</a>
+                     @endif
+                @else
+                <a href="{{route('download_pdf')}}">Download Today's Form</a>
+                @endif
             </div>
             <div class="prvious_btn profile_btn">
-                <a href="#">Previous form</a>
+                <a href="{{route('previous_form')}}">Previous form</a>
             </div>
             <div class="add_more profile_btn">
                 <a href="#">Add Vehicle</a>

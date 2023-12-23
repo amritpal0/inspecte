@@ -9,7 +9,10 @@ use App\Models\User;
 use App\Models\DriverInfo;
 use App\Models\OrderPackage;
 use App\Models\VehicleInfo;
+use App\Models\Inspecte;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use PDF;
 
 
 
@@ -45,8 +48,21 @@ class FrontController extends Controller
             session()->forget('packageData');
         }
         $packages = Product::orderby('id', 'asc')->with('vehicle')->get();
-
+        if(auth()->user()){
+            $user = auth()->user();
+            $formSubmitted = Inspecte::where('user_id', $user->id)
+            ->whereDate('created_at', Carbon::today())
+            ->exists();
+            $vehicles = VehicleInfo::where('driver_id', $user->id)->first();
+            if($vehicles){
+                $vehicle = true;
+            }else{
+                $vehicle = false;
+            }
+            return view('front.index', compact('packages', 'formSubmitted', 'vehicle'));
+        }
         return view('front.index', compact('packages'));
+
     }
 
 
@@ -380,17 +396,291 @@ class FrontController extends Controller
         ]);
     }
 
-    public function inspecte_form()
+    public function inspecte_form(Request $request)
     {
         $user = auth()->user();
-        $data = VehicleInfo::where('vehicle_infos.user_id', $user->id)
-                ->leftJoin('driver_infos', 'driver_infos.user_id', '=', 'vehicle_infos.user_id')
-                ->select('vehicle_infos.*', 'driver_infos.first_name', 'driver_infos.first_name', 'driver_infos.last_name', 'driver_infos.civic_number', 'driver_infos.business_phone', 'driver_infos.license')
-                ->first(); 
-        // dd($data);            
-        return view('front.inspecte', compact('data'));
+        if($request->query('driver')){    
+            $data = VehicleInfo::where('vehicle_infos.driver_id', $user->id)
+                    ->leftJoin('driver_infos', 'driver_infos.user_id', '=', 'vehicle_infos.driver_id')
+                    ->select('vehicle_infos.*', 'driver_infos.first_name', 'driver_infos.first_name', 'driver_infos.last_name', 'driver_infos.civic_number', 'driver_infos.business_phone', 'driver_infos.license')
+                    ->first(); 
+        }else{
+            $data = VehicleInfo::where('vehicle_infos.user_id', $user->id)
+                    ->leftJoin('driver_infos', 'driver_infos.user_id', '=', 'vehicle_infos.user_id')
+                    ->select('vehicle_infos.*', 'driver_infos.first_name', 'driver_infos.first_name', 'driver_infos.last_name', 'driver_infos.civic_number', 'driver_infos.business_phone', 'driver_infos.license')
+                    ->first(); 
+        }
+        // dd($data); 
+        $today = Carbon::now()->toDateString();  
+        $existingSubmission = Inspecte::where('user_id', $user->id)
+            ->whereDate('created_at', $today)
+            ->first();
+        if($existingSubmission){
+            $filled = true;
+            return redirect()->route('home');
+        }else{
+            $filled = false;
+            return view('front.inspecte', compact('data', 'filled'));
+        }            
     }
 
+
+    public function inspecte(Request $request)
+    {
+        $user = auth()->user();
+        $package = $this->checkPackage($request);
+        if($package == false){
+            return response()->json([
+                'success' => false,
+                'msg'     => 'Your package is expired'
+            ]);
+        }
+        $vehicle = VehicleInfo::find($request->vehicle_id);
+        $vehicle->kilometer = $request->kilometer;
+        $vehicle->save();
+        $data = new Inspecte;
+        $data->user_id = $user->id;
+        $data->vehicle_id = $request->vehicle_id;
+
+        $face_side = [];
+        if($request->face_left_headlight){
+            $face_side['face_left_headlight'] = $request->face_left_headlight;
+        }else{
+            $face_side['face_left_headlight'] = "0";
+        }
+        if($request->face_right_headlight){
+            $face_side['face_right_headlight'] = $request->face_right_headlight;
+        }else{
+            $face_side['face_right_headlight'] = "0";
+        }
+        if($request->face_left_signal){
+            $face_side['face_left_signal'] = $request->face_left_signal;
+        }else{
+            $face_side['face_left_signal'] = "0";
+        }
+        if($request->face_right_signal){
+            $face_side['face_right_signal'] = $request->face_right_signal;
+        }else{
+            $face_side['face_right_signal'] = "0";
+        }
+
+        $data->face_side = json_encode($face_side);
+
+        $rear_side = [];
+        if($request->rear_left_headlight){
+            $rear_side['rear_left_headlight'] = $request->rear_left_headlight;
+        }else{
+            $rear_side['rear_left_headlight'] = "0";
+        }
+        if($request->rear_right_headlight){
+            $rear_side['rear_right_headlight'] = $request->rear_right_headlight;
+        }else{
+            $rear_side['rear_right_headlight'] = "0";
+        }
+        if($request->rear_left_signal){
+            $rear_side['rear_left_signal'] = $request->rear_left_signal;
+        }else{
+            $rear_side['rear_left_signal'] = "0";
+        }
+        if($request->rear_right_signal){
+            $rear_side['rear_right_signal'] = $request->rear_right_signal;
+        }else{
+            $rear_side['rear_right_signal'] = "0";
+        }
+        if($request->rear_left_brake){
+            $rear_side['rear_left_brake'] = $request->rear_left_brake;
+        }else{
+            $rear_side['rear_left_brake'] = "0";
+        }
+        if($request->rear_right_brake){
+            $rear_side['rear_right_brake'] = $request->rear_right_brake;
+        }else{
+            $rear_side['rear_right_brake'] = "0";
+        }
+        if($request->rear_licence_plate){
+            $rear_side['rear_licence_plate'] = $request->rear_licence_plate;
+        }else{
+            $rear_side['rear_licence_plate'] = "0";
+        }
+
+        $data->rear_side = json_encode($rear_side);
+
+        $right_side = [];
+        if($request->right_side_mirror){
+            $right_side['right_side_mirror'] = $request->right_side_mirror;
+        }else{
+            $right_side['right_side_mirror'] = "0";
+        }
+        if($request->right_front_tire){
+            $right_side['right_front_tire'] = $request->right_front_tire;
+        }else{
+            $right_side['right_front_tire'] = "0";
+        }
+        if($request->right_rear_tire){
+            $right_side['right_rear_tire'] = $request->right_rear_tire;
+        }else{
+            $right_side['right_rear_tire'] = "0";
+        }
+        if($request->right_tire_valves){
+            $right_side['right_tire_valves'] = $request->right_tire_valves;
+        }else{
+            $right_side['right_tire_valves'] = "0";
+        }
+
+        $data->right_side = json_encode($right_side);
+
+        $left_side = [];
+        if($request->left_side_mirror){
+            $left_side['left_side_mirror'] = $request->left_side_mirror;
+        }else{
+            $left_side['left_side_mirror'] = "0";
+        }
+        if($request->left_front_tire){
+            $left_side['left_front_tire'] = $request->left_front_tire;
+        }else{
+            $left_side['left_front_tire'] = "0";
+        }
+        if($request->left_rear_tire){
+            $left_side['left_rear_tire'] = $request->left_rear_tire;
+        }else{
+            $left_side['left_rear_tire'] = "0";
+        }
+        if($request->left_tire_valves){
+            $left_side['left_tire_valves'] = $request->left_tire_valves;
+        }else{
+            $left_side['left_tire_valves'] = "0";
+        }
+
+        $data->left_side = json_encode($left_side);
+        
+        $extra_check = [];
+        if($request->honk){
+            $extra_check['honk'] = $request->honk;
+        }else{
+            $extra_check['honk'] = "0";
+        }
+        if($request->brake_fuel_level){
+            $extra_check['brake_fuel_level'] = $request->brake_fuel_level;
+        }else{
+            $extra_check['brake_fuel_level'] = "0";
+        }
+        if($request->belt_extension){
+            $extra_check['belt_extension'] = $request->belt_extension;
+        }else{
+            $extra_check['belt_extension'] = "0";
+        }
+        if($request->washer_fluid){
+            $extra_check['washer_fluid'] = $request->washer_fluid;
+        }else{
+            $extra_check['washer_fluid'] = "0";
+        }
+        if($request->wipers){
+            $extra_check['wipers'] = $request->wipers;
+        }else{
+            $extra_check['wipers'] = "0";
+        }
+        if($request->hand_brake){
+            $extra_check['hand_brake'] = $request->hand_brake;
+        }else{
+            $extra_check['hand_brake'] = "0";
+        }
+        if($request->roof_taxi){
+            $extra_check['roof_taxi'] = $request->roof_taxi;
+        }else{
+            $extra_check['roof_taxi'] = "0";
+        }
+
+        $data->extra_check = json_encode($extra_check);
+        $data->geolocation = $request->geolocation;
+        $data->immobilizer = $request->immobilizer;
+        $data->standard_equipment = $request->standard_equipment;
+        $data->ramp = $request->ramp;
+        $data->abyss = $request->abyss;
+        $data->interior_damage = $request->interior_damage;
+        $data->exterior = $request->exterior;
+        $data->interior = $request->interior;
+        $data->description = $request->description;
+        $data->confirm = $request->confirm;
+        $data->kilometer = $request->kilometer;
+        $data->save();
+        return response()->json([
+            'success' => true,
+            'msg'  => 'Form submitted successfully.'
+        ]);
+    }
+
+    public function checkPackage($request)
+    {
+        $user = auth()->user();
+        // dd($request->owner_id);
+        if(isset($request->owner_id)){
+            $user_id = $request->owner_id;
+        }else{
+            $user_id = $user->id;
+        }
+        $package = OrderPackage::where('user_id', $user_id)->first();
+        if($package->is_annual == 1){
+            $subscriptionDuration = 365;
+        }else{
+            $subscriptionDuration = 30;
+        }
+        $expirationDate = $package->created_at->addDays($subscriptionDuration);
+
+        if ($expirationDate < Carbon::now()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
+    public function download_pdf(Request $request)
+    {
+        $user = auth()->user();
+        if($request->query('id')){
+            $data = Inspecte::where('id', $request->query('id'))->with('user', 'vehicle', 'user.driver')->first();
+        }else{
+
+            $data = Inspecte::where('user_id', $user->id)->with('user', 'vehicle', 'user.driver')
+            ->whereDate('created_at', Carbon::today())->first();
+        }
+        // dd($data);
+        $pdf = PDF::loadView('form_pdf', ['data' => $data]);
+        return $pdf->download('form_pdf.pdf');
+
+        // return view('form_pdf', compact('data'));
+    }
+
+
+    public function previous_form()
+    {
+        $user = auth()->user();
+        $form = Inspecte::where('user_id', $user->id)->orderBy('id', 'desc')
+            ->get();
+        return view('front.previous_form', compact('form'));    
+    }
+
+    public function choose_vehicle_form()
+    {
+        $user = auth()->user();
+        $vehicles = VehicleInfo::where('driver_id', null)->where('user_id', $user->owner_id)->orderBy('id', 'desc')
+            ->get();
+        return view('front.choose_vehicle', compact('vehicles'));    
+    }
+
+    public function choose_vehicle(Request $request)
+    {
+        $vehicle_id = $request->vehicle_id;
+        $user = auth()->user();
+        $vehicle = VehicleInfo::find($vehicle_id);
+        $vehicle->driver_id = $user->id;
+        $vehicle->save();
+        return response()->json([
+            'success' => true,
+            'msg'    => 'Vehicle  added',
+        ]);
+    }
 
 
 

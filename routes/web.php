@@ -95,6 +95,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/car-register', [FrontController::class, 'car_register_form'])->name('car_register_form');
     Route::post('/car-register', [FrontController::class, 'car_register'])->name('car_register');
     Route::get('/inspecte', [FrontController::class, 'inspecte_form'])->name('inspecte_form');
+    Route::post('/inspecte', [FrontController::class, 'inspecte'])->name('inspecte');
+    Route::get('/download_pdf', [FrontController::class, 'download_pdf'])->name('download_pdf');
+    Route::get('/previous-form', [FrontController::class, 'previous_form'])->name('previous_form');
+    Route::get('/choose-vehicle', [FrontController::class, 'choose_vehicle_form'])->name('choose_vehicle_form');
+    Route::post('/choose-vehicle', [FrontController::class, 'choose_vehicle'])->name('choose_vehicle');
 });
 
 Route::get('/config-cache', function() {
